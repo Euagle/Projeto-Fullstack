@@ -1,6 +1,7 @@
 -- Active: 1677811070107@@127.0.0.1@3306
 
 
+--criando as seguintes tabelas: users, posts e likes_dislikes
 CREATE TABLE users (
   id TEXT PK UNIQUE NOT NULL ,
   name TEXT  NOT NULL,
@@ -32,7 +33,9 @@ CREATE TABLE likes_dislikes (
     FOREIGN KEY (post_id) REFERENCES posts (id) ON DELETE CASCADE
 );
 
+DROP TABLE likes_dislikes;
 
+--populando as seguintes tabelas: users, posts e likes_dislikes
 
 
 INSERT INTO users(id, name, email, password, role )
@@ -71,6 +74,7 @@ SELECT * FROM users;
 SELECT * FROM posts;
 SELECT * FROM likes_dislikes;
 
+DROP TABLE posts;
 
 SELECT
     posts.id,
