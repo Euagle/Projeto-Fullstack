@@ -35,7 +35,6 @@ CREATE TABLE likes_dislikes (
 
 DROP TABLE likes_dislikes;
 
---populando as seguintes tabelas: users, posts e likes_dislikes
 
 
 INSERT INTO users(id, name, email, password, role )
