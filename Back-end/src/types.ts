@@ -30,6 +30,7 @@ export interface TPostsDB {
     id: string,
     creator_id: string,
     content: string,
+    // comments: number,
     likes: number,
     dislikes: number,
     created_at: string,
@@ -46,7 +47,7 @@ export interface postModel {
 
 }
 
-export interface PlaylistWithCreatorDB extends postModel {
+export interface PCreatorDB extends postModel {
     creator_name: string
 }
 export interface TLikesdislikesDB{
@@ -57,4 +58,43 @@ export interface TLikesdislikesDB{
 export enum POST_LIKE {
     ALREADY_LIKED = "ALREADY LIKED",
     ALREADY_DISLIKED = "ALREADY DISLIKED"
+}
+
+export interface Comment{
+    id: string,
+    creator_id: string,
+    content: string,
+    likes: number,
+    dislikes: number,
+    created_at: string,
+    updated_at: string,
+    post_id: string,
+}
+export interface CommentCreator{
+    id: string,
+    content: string,
+    likes: number,
+    dislikes: number,
+    created_at: string,
+    updated_at: string,
+    post_id: string,
+    creator:{
+        creator_id: string,
+        name: string,
+    }
+}
+
+export interface PostCommentsDB{
+    id: string,
+    content: string,
+    comments: number,
+    likes: number,
+    dislikes: number,
+    created_at: string,
+    updated_at: string,
+    creator: {
+        id: string,
+        name: string,
+    },
+    comments_post: CommentCreator,
 }

@@ -12,9 +12,14 @@ export interface EditPostInputDTO {
     token: string
 }
 
+export interface GetPostInputDTO1 {
+    q: string
+    token: string
+}
 
 
 export interface GetPostInputDTO {
+    // q: string
     token: string
 }
 
@@ -40,11 +45,19 @@ export interface DeletePostInputDTO{
     id: string
     token: string
 }
+        
+    
+export interface CreateCommentDTO{
+    id_post: string,
+    content: string,
+    token: string,
+}
 
 export class PostDTO {
     getPostInput = (token: unknown) : GetPostInputDTO => {
         if (typeof token !== "string"){
             throw new BadRequestError ("Token inválido");
+            ///verificadoqqqqqqq
         }
 
         const result : GetPostInputDTO = {
@@ -72,6 +85,8 @@ export class PostDTO {
         
         if (typeof token !== "string"){
             throw new BadRequestError ("Token inválido");
+                        ///verificadoqqqqqqq
+
         }
 
         const result : GetPostByIdInputDTO = {
@@ -97,6 +112,16 @@ export class PostDTO {
         }
 
         return result;
+    }
+    CreateComment = (id_post:string, content: string, token: string) :CreateCommentDTO =>{
+
+        const result: CreateCommentDTO={
+            id_post,
+            content,
+            token,
+        }
+
+        return result
     }
 
     editPost = (id : string, content : unknown, token: unknown) : EditPostInputDTO => {
@@ -130,5 +155,6 @@ export class PostDTO {
 
         return result;
     }
+
     
 }

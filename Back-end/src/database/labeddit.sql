@@ -1,7 +1,6 @@
 -- Active: 1677811070107@@127.0.0.1@3306
 
 
---criando as seguintes tabelas: users, posts e likes_dislikes
 CREATE TABLE users (
   id TEXT PK UNIQUE NOT NULL ,
   name TEXT  NOT NULL,
@@ -31,6 +30,27 @@ CREATE TABLE likes_dislikes (
   like INTEGER NOT  NULL,
    FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE
     FOREIGN KEY (post_id) REFERENCES posts (id) ON DELETE CASCADE
+);
+
+CREATE TABLE likes_dislikes_comments(
+    user_id TEXT NOT NULL, 
+    comment_id TEXT NOT NULL, 
+    like INTEGER,
+    FOREIGN KEY(user_id) REFERENCES users(id),
+    FOREIGN KEY (comment_id) REFERENCES comments(id));
+
+
+CREATE TABLE comments (
+    id TEXT PRIMARY KEY UNIQUE NOT NULL, 
+    creator_id TEXT NOT NULL, 
+    content TEXT,
+    likes INTEGER DEFAULT(0) NOT NULL, 
+    dislikes INTEGER DEFAULT(0) NOT NULL, 
+    created_at TEXT DEFAULT(DATETIME()) NOT NULL, 
+    updated_at TEXT DEFAULT(DATETIME()) NOT NULL,
+    post_id TEXT NOT NULL,
+    FOREIGN KEY (creator_id) REFERENCES users (id),
+    FOREIGN KEY (post_id) REFERENCES posts (id)
 );
 
 DROP TABLE likes_dislikes;
@@ -67,6 +87,20 @@ VALUES("a01", "p01", 300 ),
 ("a05", "p05", 700 )
 ;
 
+INSERT INTO likes_dislikes_comments( user_id,  comment_id,  like  )
+VALUES("a01", "f001", 100 ),
+("a02", "f001", 12 ),
+("a03", "f002", 334 ),
+("a04", "f003", 3 )
+;
+
+
+INSERT INTO comments(id, creator_id, content, post_id)
+VALUES("f001", "a01", "Incrivel", "p01"),
+("f002", "a02", "Uau", "p02"),
+("f003", "a03", "Lugar maravilhoso", "p02");
+
+
 DROP TABLE likes_dislikes;
 --verificando as tabelas
 SELECT * FROM users;
@@ -87,6 +121,16 @@ SELECT
 FROM posts
 JOIN users
 ON posts.creator_id = users.id;
+SELECT comments.id, 
+comments.content,
+comments.likes,
+comments.dislikes,
+comments.created_at,
+comments.updated_at,
+users.id,
+users.name
+FROM comments LEFT JOIN users
+ON users.id = comments.creator_id;
 
 
 

@@ -74,7 +74,7 @@ export class UserBusiness {
             name,
             email,
             password,
-            USER_ROLES.NORMAL, // só é possível criar users com contas normais
+            USER_ROLES.ADMIN, // só é possível criar users com contas normais
             new Date().toISOString()
         )
 

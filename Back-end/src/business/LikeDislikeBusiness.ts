@@ -99,6 +99,7 @@ export class LikiDislikeBusiness {
         }
 
         const updatedPost = new Post(
+            
             postId,
             postDB.content,
             postDB.likes + deltaLikes,

@@ -2,6 +2,7 @@
 import { Request , Response } from "express";
 import { PostBusiness } from "../business/PostBusiness";
 import { DeletePostInputDTO, PostDTO } from "../dtos/postsDTO";
+import { BadRequestError } from "../errors/BadRequestError";
 // import { PostDTO } from "../dtos/PostDTO";
 import { BaseError } from "../errors/BaseError";
 
@@ -11,24 +12,34 @@ export class PostController {
         private postDTO : PostDTO
     ){}
 
-    public getPosts = async (req: Request, res: Response) => {
+    public getPosts = async(req:Request, res:Response)=>{
         try {
-            const token = req.headers.authorization;
 
-            const input = this.postDTO.getPostInput(token);
-            const output = await this.postBusiness.getPosts(input);
+            const input ={
+                q:req.query.q as string,
+                token: req.headers.authorization as string
+            }  
+            
 
-            res.status(200).send(output);
+            const output = await this.postBusiness.getPosts(input)
+
+            res.status(200).send(output)   
+                      
         } catch (error) {
-            console.log(error)
-
+            // console.log(error)
+        
+            // if (req.statusCode === 200) {
+            //     res.status(500)
+            // }
+    
             if (error instanceof BaseError) {
                 res.status(error.statusCode).send(error.message)
             } else {
-                res.status(500).send("Erro inesperado")
-            }
+                res.send("Erro inesperado")
+            }  
         }
     }
+
     public createPost = async (req: Request, res: Response) => {
         try {
             const content = req.body.content;
@@ -49,6 +60,33 @@ export class PostController {
         }
         
     }
+    // public createComment = async(req:Request, res:Response)=>{
+    //     try {
+
+    //     const id = req.params.id        
+    //     const content = req.body.content
+    //     const token = req.headers.authorization as string
+
+    //         const input = this.postDTO.CreateComment(id, content, token)
+
+    //         const output = await this.postBusiness.createComment(input)
+            
+    //         res.status(200).send(output)
+    
+    //     } catch (error) {
+    //         console.log(error)
+        
+    //         if (req.statusCode === 200) {
+    //             res.status(500)
+    //         }
+    
+    //         if (error instanceof Error) {
+    //             res.send(error.message)
+    //         } else {
+    //             res.send("Erro inesperado")
+    //         }  
+    //     }
+    // }
     public editPost = async(req: Request, res: Response) => {
         try {
             const id = req.params.id;

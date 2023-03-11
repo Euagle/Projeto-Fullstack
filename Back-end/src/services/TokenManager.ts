@@ -19,13 +19,13 @@ export class TokenManager {
     }
 
     public getPayload = (token: string): TokenPayload | null => {
+        console.log(token)
         try {
             const payload = jwt.verify(
                 token,
                 process.env.JWT_KEY as string
             )
-
-            return payload as TokenPayload
+          return payload as TokenPayload
 
         } catch (error) {
             return null
