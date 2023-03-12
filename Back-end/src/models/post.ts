@@ -1,144 +1,93 @@
-import { Comment, CommentCreator, postModel, TPostsDB, UserModel } from "../types"
-
 export class Post {
     constructor(
         private id: string,
+        private creatorId: string,
         private content: string,
-        // private comments: number,
         private likes: number,
         private dislikes: number,
-        private created_at: string,
-        private updated_at: string,
-        private creator: {
-            id: string,
-            name: string,
-        },
-        // private comments_post: CommentCreator,
+        private comments: number,
+        private createdAt: string,
+        private updateAt: string,
     ){}
 
-    public getId(): string {
+    getId(): string{
         return this.id
     }
 
-    public setId(value: string): void {
+    setId(value: string):void {
         this.id = value
     }
 
-    public getContent(): string {
+    getCreatorId(): string{
+        return this.creatorId
+    }
+
+    setCreatorId(value: string):void {
+        this.creatorId = value
+    }
+
+    getContent(): string{
         return this.content
     }
 
-    public setContent(value: string): void {
+    setContent(value: string):void {
         this.content = value
     }
-    // public getComments(): number {
-    //     return this.comments
-    // }
 
-    // public setComments(value: number): void {
-    //     this.comments = value
-    // }
-
-    public getLikes(): number {
+    getLikes(): number{
         return this.likes
     }
 
-    public setLikes(value: number): void {
+    setLikes(value: number):void {
         this.likes = value
     }
-    public addLike() {
+
+    addLike(){
         this.likes += 1
     }
 
-    public removeLike() {
+    removeLike(){
         this.likes -= 1
     }
 
-    public addDislike() {
+    addDislike(){
         this.dislikes += 1
     }
 
-    public removeDislike() {
+    removeDislike(){
         this.dislikes -= 1
     }
 
-
-    public getDislikes(): number {
+    getDislikes(): number{
         return this.dislikes
     }
 
-    public setDislikes(value: number): void {
+    setDislikes(value: number):void {
         this.dislikes = value
     }
 
-    public getCreatedAt():string{
-        return this.created_at
+    getCreatedAt(): string{
+        return this.createdAt
     }
 
-    public setCreatedAt(value:string){
-        this.created_at = value
+    setCreatedAt(value: string):void {
+        this.createdAt = value
     }
 
-    public getUpdatedAt():string{
-        return this.updated_at
+    getUpdateAt(): string{
+        return this.updateAt
     }
 
-    public setUpdatedAt(value:string){
-        this.updated_at = value
+    setUpdateAt(value: string):void {
+        this.updateAt = value
     }
 
-    public getCreator():{
-        id: string,
-        name: string,
-    }{
-        return this.creator
+    public getComments(): number {
+        return this.comments
     }
 
-    public setCreator(value:{
-        id: string,
-        name: string,
-    }){
-        this.creator = value
+    public setComments(value: number): void {
+        this.comments = value
     }
-
-    public toDBModelBusiness(): TPostsDB{
-        return {
-            id:this.id,
-            creator_id: this.creator.id,
-            // comments: this.comments,
-            content: this.content,
-            likes: this.likes,
-            dislikes: this.dislikes,
-            created_at: this.created_at,
-            updated_at: this.updated_at,        
-        }
-    }
-
-    // public toDBCommentBusiness(): Comment{
-    //     return {
-    //         id:this.id,
-    //         creator_id: this.creator.id,
-    //         // post_id: this.comments_post.post_id,
-    //         content: this.content,
-    //         likes: this.likes,
-    //         dislikes: this.dislikes,
-    //         created_at: this.created_at,
-    //         updated_at: this.updated_at,        
-    //     }
-    // }
-
 }
-
-    // public toDBModelBusiness() : TPostsDB {
-    //     return {
-    //         id: this.id,
-    //         content: this.content,
-    //         likes: this.likes,
-    //         dislikes: this.dislikes,
-    //         created_at: this.createdAt,
-    //         updated_at: this.updatedAt,
-    //         creator_id: this.creator.id
-    //     }
-//     }
-// }
 
