@@ -13,7 +13,7 @@ CREATE TABLE users (
 
 INSERT INTO users (id, name, email, password, role)
 VALUES
-   ("u001", "Bruno", "bruno@email.com", "bruno123", "admin");
+   ("u001", "gleice", "gleice@email.com", "gleice123", "admin");
 
 
 SELECT * FROM users;
@@ -35,7 +35,7 @@ CREATE TABLE posts (
 
 INSERT INTO posts(id, creator_id, content, likes)
 VALUES
-    ("p001", "u001", "motos", 1);
+    ("p001", "u001", "feriass", 1);
 
 SELECT * FROM posts;
 
