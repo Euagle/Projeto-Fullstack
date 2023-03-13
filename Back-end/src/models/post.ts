@@ -1,106 +1,93 @@
-import { postModel, TPostsDB, UserModel } from "../types"
-
 export class Post {
     constructor(
-        private id : string,
-        private content : string,
-        private likes : number,
-        private dislikes : number,
-        private createdAt : string,
-        private updatedAt : string,
-        private creator: {
-            id: string,
-            name: string
-        }
+        private id: string,
+        private creatorId: string,
+        private content: string,
+        private likes: number,
+        private dislikes: number,
+        private comments: number,
+        private createdAt: string,
+        private updateAt: string,
     ){}
 
-    public getId(): string {
+    getId(): string{
         return this.id
     }
 
-    public setId(value: string): void {
+    setId(value: string):void {
         this.id = value
     }
 
-    public getContent(): string {
+    getCreatorId(): string{
+        return this.creatorId
+    }
+
+    setCreatorId(value: string):void {
+        this.creatorId = value
+    }
+
+    getContent(): string{
         return this.content
     }
 
-    public setContent(value: string): void {
+    setContent(value: string):void {
         this.content = value
     }
 
-    public getLikes(): number {
+    getLikes(): number{
         return this.likes
     }
 
-    public setLikes(value: number): void {
+    setLikes(value: number):void {
         this.likes = value
     }
-    public addLike() {
+
+    addLike(){
         this.likes += 1
     }
 
-    public removeLike() {
+    removeLike(){
         this.likes -= 1
     }
 
-    public addDislike() {
+    addDislike(){
         this.dislikes += 1
     }
 
-    public removeDislike() {
+    removeDislike(){
         this.dislikes -= 1
     }
 
-
-    public getDislikes(): number {
+    getDislikes(): number{
         return this.dislikes
     }
 
-    public setDislikes(value: number): void {
+    setDislikes(value: number):void {
         this.dislikes = value
     }
 
-    public getCreatedAt(): string {
+    getCreatedAt(): string{
         return this.createdAt
     }
 
-    public setCreatedAt(value: string): void {
+    setCreatedAt(value: string):void {
         this.createdAt = value
     }
 
-    public getUpdatedAt(): string {
-        return this.updatedAt
+    getUpdateAt(): string{
+        return this.updateAt
     }
 
-    public setUpdatedAt(value: string): void {
-        this.updatedAt = value
+    setUpdateAt(value: string):void {
+        this.updateAt = value
     }
 
-    public getCreator() : {
-        id : string
-        name : string
-    } {
-        return this.creator
+    public getComments(): number {
+        return this.comments
     }
 
-    public setCreator(value: {
-        id : string,
-        name: string
-    }){
-        this.creator = value;
-    }
-    public toDBModelBusiness() : TPostsDB {
-        return {
-            id: this.id,
-            content: this.content,
-            likes: this.likes,
-            dislikes: this.dislikes,
-            created_at: this.createdAt,
-            updated_at: this.updatedAt,
-            creator_id: this.creator.id
-        }
+    public setComments(value: number): void {
+        this.comments = value
     }
 }
 

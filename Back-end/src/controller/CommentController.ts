@@ -1,25 +1,24 @@
 import { Request, Response } from "express";
-import { PostBusiness } from "../business/PostBusiness";
-import { PostDataBase } from "../database/PostDataBase";
-import { CreatePostDTO, DeletePostInputDTO, EditPostInputDTO, GetPostInputDTO, GetPostOutputDTO, LikeOrDislikeDTO } from "../dto/userDTO";
+import { CommentBusiness } from "../business/CommentBusiness";
+import { CreateCommentDTO, DeleteCommentInputDTO, EditCommentInputDTO, GetCommentInputDTO, LikeOrDislikeCommentDTO} from "../dto/userDTO";
 import { BaseError } from "../errors/BaseErrors";
-import { Post } from "../models/Post";
-import { TPosts, TPostsLike } from "../models/types";
 
-export class PostController {
+
+export class CommentController {
     constructor(
-        private postBusiness : PostBusiness
+        private commentBusiness : CommentBusiness
     ){}
-    public createPost =  async (req: Request, res: Response) => {
+    public createComment =  async (req: Request, res: Response) => {
         try {
             
-            const input : CreatePostDTO =  {
+            const input : CreateCommentDTO =  {
                 token: req.headers.authorization,
-                content: req.body.content
+                comment: req.body.comment,
+                idPost: req.params.id
             }
 
             
-            await this.postBusiness.createPost(input)
+            await this.commentBusiness.createComment(input)
           
             res.status(201).end()
     
@@ -35,13 +34,13 @@ export class PostController {
         }
     }
 
-    public getPost = async (req: Request, res: Response) => {
+    public getComment = async (req: Request, res: Response) => {
         try {
-            const input : GetPostInputDTO = {
+            const input : GetCommentInputDTO = {
                 token: req.headers.authorization
             }
     
-            const output   = await this.postBusiness.getPost(input)
+            const output   = await this.commentBusiness.getComment(input)
     
             res.status(200).send(output)
         }
@@ -57,18 +56,18 @@ export class PostController {
         }
     }
 
-    public updatePost = async (req: Request, res: Response) => {
+    public updateComment = async (req: Request, res: Response) => {
         try {
             
             
-            const input : EditPostInputDTO =  {
+            const input : EditCommentInputDTO =  {
                 idParams: req.params.id,
-                content: req.body.content,
+                comment: req.body.comment,
                 token: req.headers.authorization
             }
 
           
-            await this.postBusiness.updatePost(input)
+            await this.commentBusiness.updateComment(input)
           
 
             res.status(200).end()
@@ -89,15 +88,15 @@ export class PostController {
         }
     }
 
-    public deletePost = async (req: Request, res: Response) => {
+    public deleteComment = async (req: Request, res: Response) => {
         try {
 
-            const input : DeletePostInputDTO = {
+            const input : DeleteCommentInputDTO = {
                 id: req.params.id,
                 token: req.headers.authorization
             }
             
-            const output = await this.postBusiness.deletePost(input)
+            await this.commentBusiness.deleteComment(input)
            
             res.status(200).end()
     
@@ -113,18 +112,18 @@ export class PostController {
         }
     }
 
-    public updatePostId = async (req: Request, res: Response) => {
+    public updateCommentId = async (req: Request, res: Response) => {
         try {
             
 
-            const input : LikeOrDislikeDTO = {
+            const input : LikeOrDislikeCommentDTO = {
                 idLikeOrDislike: req.params.id,
                 token: req.headers.authorization,
                 like: req.body.like
             }
 
           
-            await this.postBusiness.updatePostId(input)
+            await this.commentBusiness.updateCommentId(input)
     
             res.status(200).end()
             
@@ -139,48 +138,4 @@ export class PostController {
             }
         }
     }
-
-    public getPostComment = async (req: Request, res: Response) => {
-        try {
-            const input : GetPostInputDTO = {
-                token: req.headers.authorization
-            }
-    
-            const output   = await this.postBusiness.getPostCommentId(input)
-    
-            res.status(200).send(output)
-        }
-        catch (error: any) {
-            console.log(error)
-    
-            if (error instanceof BaseError) {
-                res.status(error.statusCode)
-                .send(error.message)
-            }else{
-                res.send("Erro inesperado")
-            }
-        }
-    }
-
 }
-
-
-// public getPostsWithComment = async (req: Request, res: Response) => {
-//     try {
-//         const input: GetPostsInputDTO = {
-//             token: req.headers.authorization
-//         }
-
-//         const output = await this.postBusiness.getPost(input)
-
-//         res.status(200).send(output)
-//     } catch (error) {
-//         console.log(error)
-
-//         if (error instanceof BaseError) {
-//             res.status(error.statusCode).send(error.message)
-//         } else {
-// res.send("Erro inesperado")
-//         }
-//     }
-// }

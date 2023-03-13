@@ -1,42 +1,51 @@
-import { UserDB } from "../types";
-import { BaseDatabase } from "./BaseDatabase";
+import { TUser } from "../models/types";
+import { BaseDatabase } from "./BaseDataBase";
 
-export class UserDatabase extends BaseDatabase {
+
+
+export class UserDataBase extends BaseDatabase{
+
     public static TABLE_USERS = "users"
 
-    public async findUsers() {
-        let usersDB
+    public async findGetUsers(){
+        const result: TUser[] = await BaseDatabase
+        .conection(UserDataBase.TABLE_USERS)
 
-        // if (q) {
-            const result: UserDB[] = await BaseDatabase
-                .connection(UserDatabase.TABLE_USERS)
-                // .where("name", "LIKE", `%${q}%`)
-
-            usersDB = result
-        
-
-        return usersDB
+        return result
     }
 
-    public async findUserById(id: string) {
-        const [ userDB ]: UserDB[] | undefined[] = await BaseDatabase
-            .connection(UserDatabase.TABLE_USERS)
-            .where({ id })
 
-        return userDB
+
+    public async findPostUser(id: string){
+        const [userExists]: TUser[] | undefined[] = await BaseDatabase
+        .conection(UserDataBase.TABLE_USERS)
+        .where({ id });
+
+        return userExists
     }
 
-    public async findUserByEmail(email: string) {
-        const [ userDB ]: UserDB[] | undefined[] = await BaseDatabase
-            .connection(UserDatabase.TABLE_USERS)
-            .where({ email })
 
-        return userDB
+    public async findPostUserEmail(email: string){
+        const [emailExists]: TUser[] | undefined[] = await BaseDatabase
+        .conection(UserDataBase.TABLE_USERS)
+        .where({ email });
+
+        return emailExists
     }
 
-    public async insertUser(newUserDB: UserDB) {
+
+    public async insertPostUser(newUser: TUser){
         await BaseDatabase
-            .connection(UserDatabase.TABLE_USERS)
-            .insert(newUserDB)
+        .conection(UserDataBase.TABLE_USERS)
+        .insert(newUser)
+    }
+
+
+    public async findPostUserPassword(password: string){
+        const [passwordExists]: TUser[] | undefined[] = await BaseDatabase
+        .conection(UserDataBase.TABLE_USERS)
+        .where({ password: password });
+
+        return passwordExists
     }
 }
