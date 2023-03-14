@@ -11,6 +11,8 @@ CREATE TABLE users (
 );
 
 
+
+
 INSERT INTO users (id, name, email, password, role)
 VALUES
    ("u001", "gleice", "gleice@email.com", "gleice123", "admin");
