@@ -15,6 +15,11 @@ INSERT INTO users (id, name, email, password, role)
 VALUES
    ("u001", "gleice", "gleice@email.com", "gleice123", "admin");
 
+INSERT INTO users (id, name, email, password, role)
+VALUES
+   ("u002", "Paulo", "paulo@email.com", "paulo123", "admin");
+
+
 
 SELECT * FROM users;
 
@@ -71,6 +76,10 @@ CREATE TABLE comments(
     FOREIGN KEY (post_id) REFERENCES posts (id) ON DELETE CASCADE
 );
 
+INSERT INTO comments (id, user_id, post_id, likes, dislikes, comment )
+VALUES
+   ("c001","u001", "p001", 1, 2, "uau" );
+
 SELECT * FROM comments;
 
 DROP TABLE comments;
@@ -85,7 +94,9 @@ CREATE TABLE likes_dislikes_comments (
     FOREIGN KEY (post_id) REFERENCES posts (id),
     FOREIGN KEY (comment_id) REFERENCES comments (id)
 );
-
+INSERT INTO likes_dislikes_comments (comment_id, user_id, post_id, like )
+VALUES
+   ("c001","u001", "p001", 1 );
 
 SELECT * FROM likes_dislikes_comments;
 
