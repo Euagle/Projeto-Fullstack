@@ -20,6 +20,10 @@ const commentController = new CommentController(
 )
 
 
+
+
+
+
 commentRouter.post("/:id", commentController.createComment)
 
 commentRouter.get("/", commentController.getComment)
