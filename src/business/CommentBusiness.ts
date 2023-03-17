@@ -8,7 +8,7 @@ import { NotFoundError } from "../errors/NotFoundError";
 import { Comment } from "../models/Comment";
 import {  CommentDB, LikeorDislikeCommentDB } from "../models/types";
 import { HashManager } from "../services/HashManager";
-import { IdGenerator } from "../services/IdGenerator";
+import { IdGenerator } from "../services/idGenerator";
 import { TokenManager } from "../services/TokenManager";
 
 export class CommentBusiness{
