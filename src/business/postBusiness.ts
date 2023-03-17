@@ -1,12 +1,12 @@
 import { CommentDataBase } from "../database/CommentDataBase";
-import { PostDataBase } from "../database/PostDataBase";
+import { PostDataBase } from "../database/postDataBase";
 import { UserDataBase } from "../database/UserDataBase";
 import { CreatePostDTO, DeletePostInputDTO, EditPostInputDTO, GetPostInputDTO, LikeOrDislikeDTO } from "../dto/userDTO";
 import { BadRequestError } from "../errors/BadRequestError";
 import { NotFoundError } from "../errors/NotFoundError";
-import { Post } from "../models/Post";
+import { Post } from "../models/post";
 import { TPosts,  LikeorDislikeDB } from "../models/types";
-import { User } from "../models/User";
+// import { User } from "../models/User";
 import { HashManager } from "../services/HashManager";
 import { IdGenerator } from "../services/idGenerator";
 import { TokenManager } from "../services/TokenManager";

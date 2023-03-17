@@ -1,6 +1,6 @@
 import { Request } from "express";
 import { CommentDataBase } from "../database/CommentDataBase";
-import { PostDataBase } from "../database/PostDataBase";
+import { PostDataBase } from "../database/postDataBase";
 import { UserDataBase } from "../database/UserDataBase";
 import { CreateCommentDTO, DeleteCommentInputDTO, EditCommentInputDTO, GetPostCommentInputDTO, GetPostInputDTO, LikeOrDislikeCommentDTO } from "../dto/userDTO";
 import { BadRequestError } from "../errors/BadRequestError";
@@ -8,7 +8,7 @@ import { NotFoundError } from "../errors/NotFoundError";
 import { Comment } from "../models/Comment";
 import {  CommentDB, LikeorDislikeCommentDB } from "../models/types";
 import { HashManager } from "../services/HashManager";
-import { IdGenerator } from "../services/idGenerator";
+import { IdGenerator } from "../services/IdGenerator";
 import { TokenManager } from "../services/TokenManager";
 
 export class CommentBusiness{

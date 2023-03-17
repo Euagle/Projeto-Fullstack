@@ -3,7 +3,7 @@ import { UserBusiness } from "../business/UserBusiness"
 import { UserController } from "../controller/UserController"
 import { UserDataBase } from "../database/UserDataBase"
 import { HashManager } from "../services/HashManager"
-import { IdGenerator } from "../services/idGenerator"
+import { IdGenerator } from "../services/IdGenerator"
 import { TokenManager } from "../services/TokenManager"
 
 export const userRouter = express.Router()

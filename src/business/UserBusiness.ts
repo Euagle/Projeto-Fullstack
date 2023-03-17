@@ -4,7 +4,7 @@ import { BadRequestError } from "../errors/BadRequestError";
 import { TokenPayload, TUser } from "../models/types";
 import { User } from "../models/User";
 import {USER_ROLES} from "../models/types"
-import { IdGenerator } from "../services/idGenerator";
+import { IdGenerator } from "../services/IdGenerator";
 import { TokenManager } from "../services/TokenManager";
 import { HashManager } from "../services/HashManager";
 

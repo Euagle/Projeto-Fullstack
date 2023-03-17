@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
 import { PostBusiness } from "../business/PostBusiness";
-import { PostDataBase } from "../database/PostDataBase";
+import { PostDataBase } from "../database/postDataBase";
 import { CreatePostDTO, DeletePostInputDTO, EditPostInputDTO, GetPostInputDTO, GetPostOutputDTO, LikeOrDislikeDTO } from "../dto/userDTO";
 import { BaseError } from "../errors/BaseErrors";
-import { Post } from "../models/Post";
+import { Post } from "../models/post";
 import { TPosts, TPostsLike } from "../models/types";
 
 export class PostController {
