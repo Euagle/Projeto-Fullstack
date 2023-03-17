@@ -21,7 +21,14 @@ export interface LoginOutputDTO {
 }
 
 export interface GetPostInputDTO {
-    token: string | undefined
+    token: string | undefined  
+    // post_id: string | undefined 
+
+}
+export interface GetPostCommentInputDTO {
+    token: string | undefined  ,
+idPost: string | undefined 
+
 }
 
 export type GetPostOutputDTO = GetPostDB[]

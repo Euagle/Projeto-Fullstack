@@ -144,6 +144,7 @@ export class PostController {
         try {
             const input : GetPostInputDTO = {
                 token: req.headers.authorization
+                
             }
     
             const output   = await this.postBusiness.getPostCommentId(input)

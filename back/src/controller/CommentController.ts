@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { CommentBusiness } from "../business/CommentBusiness";
-import { CreateCommentDTO, DeleteCommentInputDTO, EditCommentInputDTO, GetCommentInputDTO, LikeOrDislikeCommentDTO} from "../dto/userDTO";
+import { CreateCommentDTO, DeleteCommentInputDTO, EditCommentInputDTO, GetCommentInputDTO, GetPostCommentInputDTO, GetPostInputDTO, LikeOrDislikeCommentDTO} from "../dto/userDTO";
 import { BaseError } from "../errors/BaseErrors";
 
 
@@ -36,9 +36,15 @@ export class CommentController {
 
     public getComment = async (req: Request, res: Response) => {
         try {
-            const input : GetCommentInputDTO = {
-                token: req.headers.authorization
+    const input: GetPostCommentInputDTO = {
+
+                token: req.headers.authorization ,
+                idPost:req.params.id 
             }
+
+
+            // const  id_post=req.params.id
+
     
             const output   = await this.commentBusiness.getComment(input)
     

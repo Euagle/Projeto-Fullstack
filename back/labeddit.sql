@@ -81,8 +81,12 @@ CREATE TABLE comments(
 INSERT INTO comments (id, user_id, post_id, likes, dislikes, comment )
 VALUES
    ("c001","u001", "p001", 1, 2, "uau" );
+   INSERT INTO comments (id, user_id, post_id, likes, dislikes, comment )
+VALUES
+   ("c002","u001", "p001", 1, 2, "caraca" );
 
-SELECT * FROM comments;
+SELECT * FROM comments
+where post_id == "p001";
 
 DROP TABLE comments;
 
@@ -103,3 +107,6 @@ VALUES
 SELECT * FROM likes_dislikes_comments;
 
 DROP TABLE likes_dislikes_comments;
+
+
+

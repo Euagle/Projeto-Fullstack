@@ -10,10 +10,10 @@ export class CommentDataBase extends BaseDatabase{
     public static TABLE_COMMENTS = "comments"
     public static TABLE_LIKES_DISLIKES_COMMENTS = "likes_dislikes_comments"
      
-    public async findGetCommentId(id: string){
-        const [idExists]: CommentDB[] | undefined[] = await BaseDatabase
+    public async findGetCommentId(post_id: string){
+        const idExists: CommentDB[] | undefined[] = await BaseDatabase
         .conection(CommentDataBase.TABLE_COMMENTS)
-        .where({ id });
+        .where({post_id  }  );
 
         return idExists
     }
