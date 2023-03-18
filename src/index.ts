@@ -7,10 +7,10 @@ import cors from "cors"
 // import { PostDataBase } from "../database/PostDataBase";
 // import { UserController } from "../controller/UserController";
 // import { PostController } from "../controller/PostController";
-import { userRouter } from "./Router/userRouter";
-import { postRouter } from "./Router/postRouter";
+import { userRouter } from "./router/userRouter";
+import { postRouter } from "./router/postRouter";
 import dotenv from "dotenv"
-import { commentRouter } from "./Router/commentRouter";
+import { commentRouter } from "./router/commentRouter";
 
 
 
