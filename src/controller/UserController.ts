@@ -1,10 +1,7 @@
 import { Request, Response } from "express";
 import { UserBusiness } from "../business/UserBusiness";
-import { UserDataBase } from "../database/UserDataBase";
 import { LoginInputDTO, LoginOutputDTO, SignupInputDTO, SignupOutputDTO } from "../dto/userDTO";
 import { BaseError } from "../errors/BaseErrors";
-import { TUser } from "../models/types";
-import { User } from "../models/User";
 
 
 
@@ -15,7 +12,7 @@ export class UserController {
     public createUsers = async (req: Request, res: Response) => {
     try{
         const input : SignupInputDTO = {
-            name: req.body.name,
+            nick_name: req.body.nick_name,
             email: req.body.email,
             password: req.body.password, 
         }

@@ -2,7 +2,7 @@ import express from "express"
 import { CommentBusiness } from "../business/CommentBusiness"
 import { CommentController } from "../controller/CommentController"
 import { CommentDataBase } from "../database/CommentDataBase"
-import { PostDataBase } from "../database/postDataBase"
+import { PostDataBase } from "../database/PostDataBase"
 import { HashManager } from "../services/HashManager"
 import { IdGenerator } from "../services/idGenerator"
 import { TokenManager } from "../services/TokenManager"
@@ -18,10 +18,6 @@ const commentController = new CommentController(
         new HashManager()
     )
 )
-
-
-
-
 
 
 commentRouter.post("/:id", commentController.createComment)

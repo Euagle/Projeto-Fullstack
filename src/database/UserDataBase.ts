@@ -1,4 +1,4 @@
-import { TUser } from "../models/types";
+import { TUser } from "../types";
 import { BaseDatabase } from "./BaseDataBase";
 
 

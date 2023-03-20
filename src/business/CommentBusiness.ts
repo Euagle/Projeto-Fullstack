@@ -1,12 +1,13 @@
-import { Request } from "express";
 import { CommentDataBase } from "../database/CommentDataBase";
-import { PostDataBase } from "../database/postDataBase";
+import { PostDataBase } from "../database/PostDataBase";
 import { UserDataBase } from "../database/UserDataBase";
-import { CreateCommentDTO, DeleteCommentInputDTO, EditCommentInputDTO, GetPostCommentInputDTO, GetPostInputDTO, LikeOrDislikeCommentDTO } from "../dto/userDTO";
+import { CreateCommentDTO, DeleteCommentInputDTO, EditCommentInputDTO, GetPostInputDTO, LikeOrDislikeCommentDTO } from "../dto/userDTO";
 import { BadRequestError } from "../errors/BadRequestError";
 import { NotFoundError } from "../errors/NotFoundError";
 import { Comment } from "../models/Comment";
-import {  CommentDB, LikeorDislikeCommentDB } from "../models/types";
+// import { Post } from "../models/Post";
+import { TPosts,  LikeorDislikeDB, CommentDB, LikeorDislikeCommentDB } from "../types";
+// import { User } from "../models/User";
 import { HashManager } from "../services/HashManager";
 import { IdGenerator } from "../services/idGenerator";
 import { TokenManager } from "../services/TokenManager";
@@ -74,16 +75,10 @@ export class CommentBusiness{
        
     }
 
-    public getComment = async (input: GetPostCommentInputDTO)=>{
+    public getComment = async (input: GetPostInputDTO) =>{
 
-        const { token, idPost} = input
-        
+        const { token } = input
 
-        
-
-        
-        
-        
         if(token === undefined){
             throw new BadRequestError("token ausente")
         }
@@ -95,14 +90,14 @@ export class CommentBusiness{
         }
 
     
-        const resultComment = await this.commentDataBase.findGetCommentId(idPost)
+        const resultComment = await this.commentDataBase.findGetComment()
 
         const userDataBase = new UserDataBase()
 
         const resultUsers = await userDataBase.findGetUsers()
 
 
-        const resultPost  =  resultComment.map ((item)=>{
+        const resultPost = resultComment.map((item)=>{
             return {
                 id: item.id,
                 user_id: item.user_id,
@@ -115,10 +110,9 @@ export class CommentBusiness{
         })
 
        
-        // return ({Comment: resultPost})
+        return ({Comment: resultPost})
     }
 
-    
     public updateComment = async (input: EditCommentInputDTO ):Promise<void>=>{
        
     
@@ -180,7 +174,7 @@ export class CommentBusiness{
                 post_id: commentInstance.getPostId(),
                 likes:  commentInstance.getLikes(),
                 dislikes: commentInstance.getDislikes(),
-                comment: comment || commentInstance.getComment(),
+                comment: comment as string || commentInstance.getComment(),
             }
         
         

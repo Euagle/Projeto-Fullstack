@@ -1,12 +1,11 @@
 import { CommentDataBase } from "../database/CommentDataBase";
-import { PostDataBase } from "../database/postDataBase";
+import { PostDataBase } from "../database/PostDataBase";
 import { UserDataBase } from "../database/UserDataBase";
-import { CreatePostDTO, DeletePostInputDTO, EditPostInputDTO, GetPostInputDTO, LikeOrDislikeDTO } from "../dto/userDTO";
+import { CreatePostDTO, DeletePostInputDTO, EditPostInputDTO, GetPostCommentInputDTO, GetPostInputDTO, LikeOrDislikeDTO } from "../dto/userDTO";
 import { BadRequestError } from "../errors/BadRequestError";
 import { NotFoundError } from "../errors/NotFoundError";
-import { Post } from "../models/post";
-import { TPosts,  LikeorDislikeDB } from "../models/types";
-// import { User } from "../models/User";
+import { Post } from "../models/Post";
+import { TPosts,  LikeorDislikeDB } from "../types";
 import { HashManager } from "../services/HashManager";
 import { IdGenerator } from "../services/idGenerator";
 import { TokenManager } from "../services/TokenManager";
@@ -115,7 +114,7 @@ export class PostBusiness{
            })
            
            return {id: resultTable?.id, 
-        name: resultTable?.name}
+        name: resultTable?.nick_name}
         }
        
         return ({Post: resultPost})
@@ -182,7 +181,7 @@ export class PostBusiness{
                 id: postInstance.getId(),
                 creator_id:  postInstance.getCreatorId(),
                 likes:  postInstance.getLikes(),
-                content: content || postInstance.getContent(),
+                content: content as string|| postInstance.getContent(),
                 dislikes: postInstance.getDislikes(),
                 comments: postInstance.getComments(),
                 created_at: postInstance.getCreatedAt(),
@@ -326,9 +325,9 @@ export class PostBusiness{
     }
 
 
-    public getPostCommentId = async (input: GetPostInputDTO) =>{
+    public getPostCommentId = async (input: GetPostCommentInputDTO) =>{
 
-        const { token } = input
+        const { token, idParams } = input
 
         if(token === undefined){
             throw new BadRequestError("token ausente")
@@ -339,6 +338,15 @@ export class PostBusiness{
         if(payload === null){
             throw new BadRequestError("token inválido")
         }
+
+        const post = await this.postDataBase.findPostId(idParams)
+       
+
+        if (!post) {
+        throw new BadRequestError("'id' não encontrada")
+        }
+        
+       
 
     
         const resultPosts = await this.postDataBase.findGetPost()
@@ -351,15 +359,19 @@ export class PostBusiness{
 
         const resultComment = await commentDataBase.findGetComment()
 
+           console.log(resultPosts);
            
 
-        const resultPost = resultPosts.map((item)=>{
+        const resultPost = resultPosts.filter((item)=>{
+            const postIgual = post.id === item.id
+            return postIgual
+        })
             
-            const contador =  resultComment.filter((itemComment)=>{
-                  const contandorComment = itemComment.post_id === item.id
-                     return contandorComment  
-                })
-           
+            const resultadoPost = resultPost.map((item)=>{
+                const contador =  resultComment.filter((itemComment)=>{
+                    const contandorComment = itemComment.post_id === item.id
+                       return contandorComment  
+                  })
             return {
                 id: item.id,
                 content: item.content,
@@ -383,10 +395,10 @@ export class PostBusiness{
            })
            
            return {id: resultTable?.id, 
-        name: resultTable?.name}
+        name: resultTable?.nick_name}
         }
        
-        return ({Post: resultPost})
+        return ({Post: resultadoPost})
     }
     }
 

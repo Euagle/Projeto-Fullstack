@@ -1,9 +1,9 @@
-import { GetPostDB } from "../models/types"
+import { GetPostDB } from "../types"
 
 export interface SignupInputDTO {
-    name: string,
+    nick_name: string,
     email: string,
-    password: string
+    password: unknown
 }
 
 
@@ -12,8 +12,8 @@ export interface SignupOutputDTO {
 }
 
 export interface LoginInputDTO {
-    email: unknown,
-    password: unknown
+    email: string,
+    password: string
 }
 
 export interface LoginOutputDTO {
@@ -21,14 +21,7 @@ export interface LoginOutputDTO {
 }
 
 export interface GetPostInputDTO {
-    token: string | undefined  
-    // post_id: string | undefined 
-
-}
-export interface GetPostCommentInputDTO {
-    token: string | undefined  ,
-idPost: string | undefined 
-
+    token: string | undefined
 }
 
 export type GetPostOutputDTO = GetPostDB[]
@@ -41,7 +34,7 @@ export interface CreatePostDTO {
 export interface EditPostInputDTO {
     idParams: string,
     token: string | undefined,
-    content: string
+    content: unknown
 }
 
 export interface DeletePostInputDTO {
@@ -71,7 +64,7 @@ export interface CreateCommentDTO {
 export interface EditCommentInputDTO {
     idParams: string,
     token: string | undefined,
-    comment: string
+    comment: unknown
 }
 
 export interface DeleteCommentInputDTO {
@@ -87,8 +80,8 @@ export interface LikeOrDislikeCommentDTO {
 
 
 export interface GetPostCommentInputDTO {
+    idParams: string
     token: string | undefined
-    idPost: string
 }
 
       

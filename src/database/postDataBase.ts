@@ -1,5 +1,4 @@
-import { Post } from "../models/post";
-import { LikeorDislikeDB, TPosts } from "../models/types";
+import { LikeorDislikeDB, TPosts } from "../types";
 import { BaseDatabase } from "./BaseDataBase";
 
 

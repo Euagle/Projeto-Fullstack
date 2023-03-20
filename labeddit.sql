@@ -1,4 +1,4 @@
--- Active: 1677811070107@@127.0.0.1@3306
+-- Active: 1679331199331@@127.0.0.1@3306
 
 
 CREATE TABLE users (
@@ -11,16 +11,13 @@ CREATE TABLE users (
 );
 
 
-
-
 INSERT INTO users (id, name, email, password, role)
 VALUES
-   ("u001", "gleice", "gleice@email.com", "gleice123", "admin");
-
-INSERT INTO users (id, name, email, password, role)
-VALUES
-   ("u002", "Paulo", "paulo@email.com", "paulo123", "admin");
-
+   ("u001", "Gleice", "gleice@email.com", "gleice123@", "admin"),
+      ("u002", "Paola", "paola@email.com", "paola123@", "normal"),
+         ("u003", "Josué", "Josué@email.com", "Josué123@", "normal"),
+                  ("u004", "Bruna", "bruna@email.com", "bruna123@", "normal"),
+                                    ("u005", "Matheus", "matheus@email.com", "matheus123@", "normal");
 
 
 SELECT * FROM users;
@@ -42,7 +39,16 @@ CREATE TABLE posts (
 
 INSERT INTO posts(id, creator_id, content, likes)
 VALUES
-    ("p001", "u001", "feriass", 1);
+    ("p001", "u001", "Hoje o dia render", 1),
+        ("p002", "u002", "Sextô", 1),
+                ("p003", "u003", "#Partiu rodeio", 1),
+                        ("p004", "u004", "Praiou?", 1),
+                                ("p005", "u005", "Fala aí uma série boa", 1);
+
+;
+;
+;
+;
 
 SELECT * FROM posts;
 
@@ -60,7 +66,13 @@ CREATE TABLE likes_dislikes (
 
 INSERT INTO likes_dislikes (user_id, post_id)
 VALUES
-   ("u001", "p001");
+   ("u001", "p001"),
+      ("u002", "p002"),
+   ("u003", "p003"),
+   ("u004", "p004"),
+      ("u005", "p005");
+   
+
 
 SELECT * FROM likes_dislikes;
 
@@ -78,15 +90,17 @@ CREATE TABLE comments(
     FOREIGN KEY (post_id) REFERENCES posts (id) ON DELETE CASCADE
 );
 
-INSERT INTO comments (id, user_id, post_id, likes, dislikes, comment )
-VALUES
-   ("c001","u001", "p001", 1, 2, "uau" );
-   INSERT INTO comments (id, user_id, post_id, likes, dislikes, comment )
-VALUES
-   ("c002","u001", "p001", 1, 2, "caraca" );
 
-SELECT * FROM comments
-where post_id == "p001";
+INSERT INTO comments(id, user_id, post_id, likes, dislikes, comment )
+VALUES("c001", "u001", "p001",200, 1, "Vai sim" ),
+("c002", "u001", "p001",200, 1, "rendeu" ),
+("c003", "u002", "p002",20, 2, "Onde vai ser?" ),
+("c004", "u003", "p003",333, 0, "rendeu" ),
+("c005", "u004", "p004",124, 1, "Praiou" );
+
+
+
+SELECT * FROM comments;
 
 DROP TABLE comments;
 
@@ -100,16 +114,16 @@ CREATE TABLE likes_dislikes_comments (
     FOREIGN KEY (post_id) REFERENCES posts (id),
     FOREIGN KEY (comment_id) REFERENCES comments (id)
 );
-INSERT INTO likes_dislikes_comments (comment_id, user_id, post_id, like )
-VALUES
-   ("c001","u001", "p001", 1 );
+
+
+
+INSERT INTO( comment_id, user_id, post_id, like)
+VALUES("c001", "u001", "p002", 2),
+("c002", "u002", "p003", 2),
+("c003", "u003", "p004", 1),
+("c004", "u004", "p005", 2);
+
 
 SELECT * FROM likes_dislikes_comments;
 
 DROP TABLE likes_dislikes_comments;
-
-
-
-
-
-

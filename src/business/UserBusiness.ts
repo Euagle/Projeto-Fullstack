@@ -1,9 +1,9 @@
 import { UserDataBase } from "../database/UserDataBase";
 import { LoginInputDTO, LoginOutputDTO, SignupInputDTO, SignupOutputDTO } from "../dto/userDTO";
 import { BadRequestError } from "../errors/BadRequestError";
-import { TokenPayload, TUser } from "../models/types";
+import { TokenPayload, TUser } from "../types";
 import { User } from "../models/User";
-import {USER_ROLES} from "../models/types"
+import {USER_ROLES} from "../types"
 import { IdGenerator } from "../services/idGenerator";
 import { TokenManager } from "../services/TokenManager";
 import { HashManager } from "../services/HashManager";
@@ -17,16 +17,16 @@ export class UserBusiness {
     ){}
     public createUsers = async (input: SignupInputDTO): Promise<SignupOutputDTO> => {
     
-            const {  name, email, password } = input
+            const {  nick_name, email, password } = input
             
     
-            if ( !name || !email || !password ) {
+            if ( !nick_name || !email || !password ) {
                 throw new BadRequestError("Dados inválidos")
             }
     
-            if (name !== undefined) {
+            if (nick_name !== undefined) {
     
-                if (typeof name !== "string") {
+                if (typeof nick_name !== "string") {
                     throw new BadRequestError("'name' deve ser string")
                     }
                 }
@@ -53,24 +53,24 @@ export class UserBusiness {
             if (emailExists) {
                 throw new BadRequestError("'email' do usuário já existe")
             }
-            // .match(/^[\w-.]+@([\w-]+.)+[\w-]{2,4}$/g)
-            if (!email) {
+    
+            if (!email.match(/^[\w-.]+@([\w-]+.)+[\w-]{2,4}$/g)) {
                 throw new BadRequestError("Parâmetro 'email' inválido")
             }
     
             const userInstance = new User(
                 this.idGenerator.generate(),
-                name,
+                nick_name,
                 email,
                 hashPassword,
-                USER_ROLES.USUARIO,
+                USER_ROLES.NORMAL,
                 new Date().toISOString()
             )
     
     
             const newUser : TUser =  {
                 id: userInstance.getId(),
-                name: userInstance.getName(),
+                nick_name: userInstance.getName(),
                 email: userInstance.getEmail(),
                 password: userInstance.getPassword(),
                 role: userInstance.getRole(),
@@ -120,8 +120,8 @@ export class UserBusiness {
                 if (!emailExists) {
                     throw new BadRequestError("email incorreto")
                 }
-                // .match(/^[\w-.]+@([\w-]+.)+[\w-]{2,4}$/g)
-                if (!email) {
+        
+                if (!email.match(/^[\w-.]+@([\w-]+.)+[\w-]{2,4}$/g)) {
                     throw new BadRequestError("Parâmetro 'email' inválido")
                 }
     
@@ -131,7 +131,7 @@ export class UserBusiness {
 
             const userInstance = new User(
                 emailExists.id,
-                emailExists.name,
+                emailExists.nick_name,
                 emailExists.email,
                 emailExists.password,
                 emailExists.role,
@@ -142,7 +142,7 @@ export class UserBusiness {
 
             
             const passwordHash = await this.hashManager
-            .compare(password as string, hashedPassaword)
+            .compare(password, hashedPassaword)
             
 
             if(!passwordHash){
@@ -152,7 +152,7 @@ export class UserBusiness {
             
             const newUser: TokenPayload = {
                 id: userInstance.getId(),
-                name: userInstance.getName(),
+                nick_name: userInstance.getName(),
                 role: userInstance.getRole()
             }
 
@@ -174,7 +174,7 @@ export class UserBusiness {
             const users: User[] = result.map((result)=>
             new User(
               result.id,
-              result.name,
+              result.nick_name,
               result.email,
               result.password,
               result.role,

@@ -1,7 +1,7 @@
 import express from "express"
 import { PostBusiness } from "../business/PostBusiness"
 import { PostController } from "../controller/PostController"
-import { PostDataBase } from "../database/postDataBase"
+import { PostDataBase } from "../database/PostDataBase"
 import { HashManager } from "../services/HashManager"
 import { IdGenerator } from "../services/idGenerator"
 import { TokenManager } from "../services/TokenManager"
@@ -28,4 +28,4 @@ postRouter.delete("/:id", postController.deletePost)
 
 postRouter.put("/:id/like", postController.updatePostId)
 
-postRouter.get("/commentId", postController.getPostComment)
+postRouter.get("/comment/:id", postController.getPostComment)

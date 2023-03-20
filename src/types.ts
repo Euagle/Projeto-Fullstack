@@ -1,16 +1,16 @@
 export enum USER_ROLES {
-    USUARIO = "Usuario",
+    NORMAL = "Normal",
     ADMIN = "Admin"
 }
 
 export interface TokenPayload {
     id: string,
-    name: string,
+    nick_name: string,
     role: USER_ROLES
 }
 export type TUser = {
     id: string,
-    name: string,
+    nick_name: string,
     email: string,
     password: string,
     role: USER_ROLES,
@@ -70,7 +70,7 @@ export interface LikeorDislikeCommentDB {
 }
 
 export interface CommentWithCreatorDB extends CommentDB {
-    creator_name: string
+    creator_nick_name: string
 }
 
 

@@ -1,16 +1,16 @@
 import express, { Request, Response } from "express"
 import cors from "cors"
 // import { TUser, TPosts, TPostsLike } from "./types";
-// import { User } from "./User";
-// import { Post } from "./Post";
-// import { UserDataBase } from "../database/UserDataBase";
-// import { PostDataBase } from "../database/PostDataBase";
-// import { UserController } from "../controller/UserController";
-// import { PostController } from "../controller/PostController";
-import { userRouter } from "./router/userRouter";
-import { postRouter } from "./router/postRouter";
+// import { User } from "./models/User";
+// import { Post } from "./models/Post";
+// import { UserDataBase } from "./database/UserDataBase";
+// import { PostDataBase } from "./database/PostDataBase";
+// import { UserController } from "./controller/UserController";
+// import { PostController } from "./controller/PostController";
+import { userRouter } from "./Router/userRouter";
+import { postRouter } from "./Router/postRouter";
 import dotenv from "dotenv"
-import { commentRouter } from "./router/commentRouter";
+import { commentRouter } from "./Router/commentRouter";
 
 
 

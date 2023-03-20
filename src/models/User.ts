@@ -1,9 +1,9 @@
-import { USER_ROLES } from "./types"
+import { USER_ROLES } from "../types"
 
 export class User {
     constructor(
         private id: string,
-        private name: string,
+        private nickName: string,
         private email: string,
         private password: string,
         private role: USER_ROLES,
@@ -21,12 +21,12 @@ public setId(value:string):void {
 
 
 public getName():string {
-    return this.name
+    return this.nickName
 }
 
 
 public setName(value:string):void {
-    this.name = value
+    this.nickName = value
 }
 
 

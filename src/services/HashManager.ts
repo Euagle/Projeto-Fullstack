@@ -13,7 +13,7 @@ export class HashManager {
     }
 
     public compare = async (plaintext: string, hash: string) => {
-				// aqui não precisa do await porque o return já se comporta como um
+				
         return bcrypt.compare(plaintext, hash)
     }
 }
