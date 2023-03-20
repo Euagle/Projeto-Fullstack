@@ -91,7 +91,7 @@ export class PostBusiness{
         const resultUsers = await userDataBase.findGetUsers()
 
 
-        const resultPost = resultPosts.map((item as any)=>{
+        const resultPost = resultPosts.map((item :any)=>{
             return {
                 id: item.id,
                 content: item.content,
